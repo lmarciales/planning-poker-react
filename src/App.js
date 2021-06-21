@@ -1,40 +1,41 @@
-import './App.css';
-import { useEffect, useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import fs from './infrastructure/api';
+import { useContext } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './App.scss';
+import { UserContext } from '@application/context/UserContext';
+import UserModal from './presentation/components/userModal/UserModal';
+import Home from './presentation/pages/home/Home';
+import Room from './presentation/pages/room/Room';
 
 function App() {
-  const [roomInput, setRoomInput] = useState('');
-  const [userInput, setUserInput] = useState('');
-
-  const roomRef = fs.collection('rooms');
-  const [rooms] = useCollectionData(roomRef);
-
-  useEffect(() => {
-    return sessionStorage.clear();
-  }, []);
-
-  const createUser = () => {
-    sessionStorage.setItem('user', userInput);
-  };
-
-  const createRoom = () => {
-    roomRef.add({
-      room: roomInput,
-    });
-  };
+  const { user } = useContext(UserContext);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {sessionStorage.getItem('user')}
-        <input type="text" value={userInput} onChange={e => setUserInput(e.target.value)} />
-        <button onClick={() => createUser()}>Create User</button>
-        <input type="text" value={roomInput} onChange={e => setRoomInput(e.target.value)} />
-        <button onClick={() => createRoom()}>Create Room</button>
-        {rooms && rooms.map((room, index) => <div key={index}>{room.room}</div>)}
-      </header>
-    </div>
+    <main>
+      <div className={`App ${user ? '' : 'show'}`} aria-label="app-navigation">
+        <Switch>
+          <Route path="/" component={Home} exact />
+          <Route path="/:id" component={Room} />
+        </Switch>
+      </div>
+      {!user && (
+        <div className="modal">
+          <UserModal />
+        </div>
+      )}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+      />
+    </main>
   );
 }
 

@@ -1,0 +1,48 @@
+.container {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #BB86FC;
+  border-radius: 10px;
+  background-color: #4B4B4B;
+
+  .iconShare {
+    cursor: pointer;
+  }
+
+  .participantsList {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px 0;
+    border-left: 5px solid #121212;
+    border-radius: 10px;
+    text-align: start;
+    color: black;
+    background-color: white;
+    position: relative;
+
+    &.voted {
+      border-left: 5px solid #BB86FC;
+    }
+  }
+
+  .results {
+    text-align: start;
+  }
+
+  .cardList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    div {
+      margin: 5px;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+}
