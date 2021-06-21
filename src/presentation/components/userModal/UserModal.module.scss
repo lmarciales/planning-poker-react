@@ -1,12 +1,14 @@
 .container {
   display: grid;
+  margin: 0 20px;
   padding: 20px;
   text-align: center;
-  background-color: white;
-  border: 1px solid black;
+  color: white;
+  background-color: #4B4B4B;
+  border: 1px solid #BB86FC;
   border-radius: 10px;
 
   input {
-    margin: 10px 0;
+    margin: 10px 2px;
   }
 }

@@ -21,8 +21,15 @@ const UserModal = () => {
       <h1>Welcome!</h1>
       <span>Let us know the username you want to use to join a Planning Poker Room</span>
       <form>
-        <input type="text" value={userInput} aria-label="user-input" onChange={e => setUserInput(e.target.value)} />
-        <button onClick={createUser} type="submit">
+        <input
+          type="text"
+          value={userInput}
+          aria-label="user-input"
+          onChange={e => setUserInput(e.target.value)}
+          minLength={2}
+          required
+        />
+        <button onClick={createUser} type="submit" disabled={userInput.length < 1}>
           Join!
         </button>
       </form>

@@ -124,8 +124,12 @@ const Room = () => {
           mod =>
             mod === user.id && (
               <div key={mod}>
-                <button onClick={clearVotes}>Clear votes</button>
-                <button onClick={showResults}>Show results</button>
+                <button onClick={clearVotes} disabled={!room.showResult}>
+                  Clear votes
+                </button>
+                <button onClick={showResults} disabled={room.showResult}>
+                  Show results
+                </button>
               </div>
             ),
         )}
@@ -145,7 +149,7 @@ const Room = () => {
               <strong># of votes:</strong> {room.votes}
             </p>
             <p>
-              <strong>Average:</strong> {room.average}
+              <strong>Average:</strong> {isNaN(room.average) ? 0 : room.average}
             </p>
           </div>
         ) : null}
@@ -156,7 +160,6 @@ const Room = () => {
           {vote && vote.map((series, index) => <CardToggle item={series} key={index} toggle={handleActiveCard} />)}
         </div>
       </section>
-      <button onClick={() => route.push('/')}>Go back</button>
     </div>
   );
 };
