@@ -18,7 +18,16 @@ const Home = () => {
 
   const customSeriesRender = () => {
     if (selectedOption === 0) {
-      return <input type="text" value={customSeries} onChange={e => setCustomSeries(e.target.value)} />;
+      return (
+        <>
+          <input
+            type="text"
+            value={customSeries}
+            onChange={e => setCustomSeries(e.target.value)}
+            placeholder="Write numbers separated by comas"
+          />
+        </>
+      );
     }
   };
 
@@ -44,6 +53,7 @@ const Home = () => {
 
   return (
     <form onSubmit={e => e.preventDefault()} className={styles.container}>
+      <h1>Create your room and start the game!</h1>
       <input
         type="text"
         value={roomInput}
@@ -65,7 +75,11 @@ const Home = () => {
         ))}
       </select>
       {customSeriesRender()}
-      <button onClick={createRoom} type="submit" disabled={roomInput.length < 1}>
+      <button
+        onClick={createRoom}
+        type="submit"
+        disabled={roomInput.length < 1 || selectedOption === 0 ? customSeries.length < 1 : null}
+      >
         Create Room
       </button>
     </form>
